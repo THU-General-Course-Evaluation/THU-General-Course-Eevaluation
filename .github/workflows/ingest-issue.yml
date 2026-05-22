@@ -4,8 +4,10 @@ on:
   issues:
     types: [opened, edited, labeled]
 
+# Serialize only per issue (so opened/edited/labeled for the same issue don't race);
+# different issues run in parallel and resolve push races via the retry loop below.
 concurrency:
-  group: course-review-ingest
+  group: course-review-ingest-${{ github.event.issue.number }}
   cancel-in-progress: false
 
 permissions:
@@ -18,10 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
 
-      - name: Generate review markdown
+      - name: Ingest and push to batch branch
         env:
           ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -29,8 +35,36 @@ jobs:
           ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
           ISSUE_URL: ${{ github.event.issue.html_url }}
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           uv sync --no-dev
-          uv run python github-action/ingest_issue.py
+          for attempt in 1 2 3 4 5; do
+            # Always rebuild on top of the latest batch branch so accumulated
+            # reviews (and the regenerated index) include everyone else's work.
+            git fetch origin batch/course-review || true
+            if git show-ref --verify --quiet refs/remotes/origin/batch/course-review; then
+              git checkout -B batch/course-review origin/batch/course-review
+            else
+              git checkout -B batch/course-review
+            fi
+
+            uv run python github-action/ingest_issue.py
+
+            git add docs/courses
+            if git diff --cached --quiet; then
+              echo "No changes to commit."
+              exit 0
+            fi
+            git commit -m "chore: ingest review from issue #${ISSUE_NUMBER}"
+
+            if git push origin HEAD:batch/course-review; then
+              echo "Pushed on attempt ${attempt}."
+              exit 0
+            fi
+            echo "Push rejected (attempt ${attempt}); another run got there first, re-syncing."
+          done
+          echo "Failed to push after 5 attempts." >&2
+          exit 1
 
       - name: Comment failure
         if: failure()
@@ -43,15 +77,6 @@ jobs:
               issue_number: context.issue.number,
               body: '自动生成失败，请检查填写信息与课程数据是否匹配。'
             })
-
-      - name: Commit changes
-        if: success()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/courses
-          git commit -m "chore: ingest review from issue #${{ github.event.issue.number }}" || exit 0
-          git push origin HEAD:batch/course-review
 
       - name: Comment success
         if: success()
