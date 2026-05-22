@@ -1,0 +1,20 @@
+site_name: 通识课课程评价
+site_url: https://<your-username>.github.io/general-course-evaluation/
+repo_url: https://github.com/<your-username>/general-course-evaluation
+repo_name: general-course-evaluation
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+nav:
+  - 首页: index.md
+  - 课程评价: courses/index.md
+  - 贡献指南: contribute.md

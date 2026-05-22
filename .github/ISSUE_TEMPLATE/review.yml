@@ -1,0 +1,37 @@
+name: 通识课评价
+description: 提交通识课课程评价
+title: "[通识课评价] 课程号-课序号 课程名"
+labels: ["course-review"]
+body:
+  - type: input
+    id: course_no
+    attributes:
+      label: 课程号
+      description: 如 ABCD1234
+      placeholder: ABCD1234
+    validations:
+      required: true
+  - type: input
+    id: section_no
+    attributes:
+      label: 课序号
+      description: 如 01
+      placeholder: 01
+    validations:
+      required: true
+  - type: input
+    id: rating
+    attributes:
+      label: 评价打分（1-7）
+      description: 1-7，数字越大评价越好
+      placeholder: "6"
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: 具体评价内容
+      description: 请客观描述课程内容、作业/考试、收获等
+      placeholder: "课程节奏适中，作业量合理..."
+    validations:
+      required: true

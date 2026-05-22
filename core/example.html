@@ -1,0 +1,1653 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <!--[if lte IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <![endif]-->
+
+<link href="css/css.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/components/jquery-easyui/jquery.min.js"></script>
+<script type="text/javascript" src="/components/jquery-easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/components/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/components/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript" src="scripts/prototype.js"></script>
+<script type="text/javascript" src="scripts/gbp/page.js"></script>
+<script type="text/javascript" src="scripts/gbp/selectlist.js"></script>
+<script type="text/javascript" src="scripts/gbp/validation.js"></script>
+<script type="text/javascript" src="scripts/gbp/datepicker.js"></script>
+<script type="text/javascript" src="scripts/gbp/menu.js"></script>
+<script type="text/javascript" src="scripts/validator.jsp"></script>
+<script type="text/javascript" src="scripts/zhjw/pubFunction.js"></script>
+    <script type="text/javascript" src="jxmh/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="jxmh/js/trunk8.js"></script>
+        
+
+    <body style="overflow-x:auto;overflow-y:auto;min-width:1600px;">
+<script>
+
+
+
+window.dhx_globalImgPath="/images/";
+window.document.title = "选课开课信息查询" //选课开课信息查询
+
+function turn(p){//翻页函数
+  document.frm.page.value = p;
+  if(confirmSubmited(document.frm)){
+  	document.frm.m.value="kkxxSearch";
+    document.frm.submit();
+  }
+}
+
+window.document.onkeydown = function(evt){
+  if(evt == null) evt = window.event;
+  if(evt && evt.srcElement.type && evt.srcElement.type != 'submit' && evt.srcElement.type != 'button' && evt.srcElement.type != 'textarea' && evt.keyCode == 13){
+  	if(evt.srcElement.name == "p_kcm" || evt.srcElement.name == "p_kch" || evt.srcElement.name == "p_zjjsxm" || evt.srcElement.name == "p_kctsm"  || evt.srcElement.name == "p_xkwzsm") {
+			doQuery();
+		} else if(evt.srcElement.name == "goPageNumber") {
+			document.frm.go.disabled=true;
+			turn(document.frm.goPageNumber.value);
+		}
+  }
+}
+
+function doQuery(methodName){//重新查询
+  var frm = window.document.frm;
+  if(methodName=="queryAll") methodName="kkxxQueryAll";
+  if(confirmSubmited(document.frm)){
+    document.frm.page.value = "-1";
+    document.frm.m.value = (methodName ? methodName : "kkxxSearch");
+    document.frm.submit();
+  } 
+}
+
+function doSort(sortParam){//动态排序
+	var methodName="kkxxSearch";
+    if(document.frm["p_sort.p1"].value == sortParam){
+      document.frm["p_sort.asc1"].value = (document.frm["p_sort.asc1"].value=="true" ? "false" : "true");
+      
+    }else{
+      document.frm["p_sort.p2"].value = document.frm["p_sort.p1"].value;
+      document.frm["p_sort.asc2"].value = document.frm["p_sort.asc1"].value;
+      document.frm["p_sort.p1"].value = sortParam;
+      document.frm["p_sort.asc1"].value = "true";
+      
+    }
+    document.frm.m.value = (methodName ? methodName : "");
+    document.frm.submit();
+}
+
+function setInitValue(){
+
+	  //initTopLocal();
+
+    with(document.frm){
+    	p_kkdwnm.value = "";
+    	p_kcflm.value = "";
+    	p_skxq.value = "";
+    	p_skjc.value = "";
+    	p_ssnj.value = "";
+    	p_kctsm.value = "";
+
+  }
+}
+Event.observe(window, "load", setInitValue, false);
+</script>
+
+<!-- 定义列样式，主要是设置列宽度和对齐 -->
+
+
+<script>
+
+
+  
+  
+  <!-- paged变量指示分页显示还是不分页显示。grid.jsp里用到 -->
+
+    
+   
+
+  <!--定义数据行,第一列为选择框-->
+  
+</script>
+
+</head>
+
+<body>  
+<div class="waiKuang">
+<div id="isShow"><div class="dqwz" id="pathTd"></div></div>
+  <div id="SubComtent" class="header clearfix"> 
+		<a href="#"></a>
+   	 	<ul class="main clearfix">
+            <li><a href="#"><img class="logo" src="images/zhjw/xk/4_03.jpg"></a></li>
+  		</ul>
+    </div>      
+
+
+    
+<form name="frm" action="xkBks.vxkBksJxjhBs.do" class="bs-docs-example" style="margin:0px;" target="_self" method="POST">
+<input type="hidden" name="m" value="" >
+<input type="hidden" name="page" value="" >
+<input type="hidden" name="token" value="247f596f9fc8bf1ead19a799a9cf3bf3">
+<input type="hidden" name="p_sort.p1" value="" >
+<input type="hidden" name="p_sort.p2" value="" >
+<input type="hidden" name="p_sort.asc1" value="true" >
+<input type="hidden" name="p_sort.asc2" value="true" >
+<input type="hidden" name="p_xnxq" value="">
+<input type="hidden" name="pathContent" value="">
+<input type="hidden" name="showtitle" value="" >
+
+	<div class="concent clearfix">
+        <div class="concentright">
+        	<div class="xinXi">
+           		<p class="bt yahei"></p>
+            	<div class="xinXi2 clearfix">
+                	<div class="keH clearfix">
+                	
+                    <p><span class="pad1" style="padding-right: 15px;">课程号</span><input name="p_kch" type="text" size="10" class="inp" value="" style="padding: 5px 3px;"></p>
+                    <p><span class="pad1" style="padding-right: 15px;margin-left:-2px;">课程名</span><input name="p_kcm" type="text" size="10" class="inp" value="" style="padding: 5px 3px;"></p>
+                    <p><span class="pad" style="padding-right: 15px;margin-left:-2px;">主讲教师</span><input name="p_zjjsxm" type="text" size="10" class="inp" value="" style="padding: 5px 3px;"></p>
+                    <p><span class="pad1" style="padding-right: 15px;margin-left:-2px;">开课院系</span>
+					<select name="p_kkdwnm" style="padding:7px;">
+						<option value="" title="所有系">所有系</option>
+						
+						
+						<option value="000"  title="建筑学院"> 建筑学院</option>
+						
+						<option value="001"  title="城规系"> 城规系</option>
+						
+						<option value="002"  title="建筑系"> 建筑系</option>
+						
+						<option value="003"  title="土木系"> 土木系</option>
+						
+						<option value="004"  title="水利系"> 水利系</option>
+						
+						<option value="005"  title="环境学院"> 环境学院</option>
+						
+						<option value="012"  title="机械系"> 机械系</option>
+						
+						<option value="013"  title="精仪系"> 精仪系</option>
+						
+						<option value="014"  title="能动系"> 能动系</option>
+						
+						<option value="015"  title="车辆学院"> 车辆学院</option>
+						
+						<option value="016"  title="工业工程系"> 工业工程系</option>
+						
+						<option value="022"  title="电机系"> 电机系</option>
+						
+						<option value="023"  title="电子系"> 电子系</option>
+						
+						<option value="024"  title="计算机系"> 计算机系</option>
+						
+						<option value="025"  title="自动化系"> 自动化系</option>
+						
+						<option value="026"  title="集成电路学院"> 集成电路学院</option>
+						
+						<option value="031"  title="航院"> 航院</option>
+						
+						<option value="032"  title="工物系"> 工物系</option>
+						
+						<option value="034"  title="化工系"> 化工系</option>
+						
+						<option value="035"  title="材料学院"> 材料学院</option>
+						
+						<option value="042"  title="数学系"> 数学系</option>
+						
+						<option value="043"  title="物理系"> 物理系</option>
+						
+						<option value="044"  title="化学系"> 化学系</option>
+						
+						<option value="045"  title="生命学院"> 生命学院</option>
+						
+						<option value="046"  title="地学系"> 地学系</option>
+						
+						<option value="047"  title="交叉信息院"> 交叉信息院</option>
+						
+						<option value="048"  title="高研院"> 高研院</option>
+						
+						<option value="051"  title="经管学院"> 经管学院</option>
+						
+						<option value="059"  title="公管学院"> 公管学院</option>
+						
+						<option value="060"  title="金融学院"> 金融学院</option>
+						
+						<option value="063"  title="中文系"> 中文系</option>
+						
+						<option value="064"  title="外文系"> 外文系</option>
+						
+						<option value="066"  title="法学院"> 法学院</option>
+						
+						<option value="067"  title="新闻学院"> 新闻学院</option>
+						
+						<option value="068"  title="马克思主义学院"> 马克思主义学院</option>
+						
+						<option value="069"  title="人文学院"> 人文学院</option>
+						
+						<option value="070"  title="社科学院"> 社科学院</option>
+						
+						<option value="072"  title="体育部"> 体育部</option>
+						
+						<option value="075"  title="图书馆"> 图书馆</option>
+						
+						<option value="078"  title="艺教中心"> 艺教中心</option>
+						
+						<option value="080"  title="美术学院"> 美术学院</option>
+						
+						<option value="088"  title="统计系"> 统计系</option>
+						
+						<option value="091"  title="建管系"> 建管系</option>
+						
+						<option value="092"  title="天文系"> 天文系</option>
+						
+						<option value="093"  title="安全学院"> 安全学院</option>
+						
+						<option value="094"  title="人工智能学院"> 人工智能学院</option>
+						
+						<option value="095"  title="心理系"> 心理系</option>
+						
+						<option value="096"  title="卫健学院"> 卫健学院</option>
+						
+						<option value="097"  title="苏世民书院"> 苏世民书院</option>
+						
+						<option value="099"  title="建筑技术"> 建筑技术</option>
+						
+						<option value="101"  title="核研院"> 核研院</option>
+						
+						<option value="103"  title="教育学院"> 教育学院</option>
+						
+						<option value="151"  title="训练中心"> 训练中心</option>
+						
+						<option value="155"  title="电工电子中心"> 电工电子中心</option>
+						
+						<option value="207"  title="学生部"> 学生部</option>
+						
+						<option value="209"  title="武装部"> 武装部</option>
+						
+						<option value="254"  title="教务处"> 教务处</option>
+						
+						<option value="255"  title="研究生院"> 研究生院</option>
+						
+						<option value="305"  title="校医院"> 校医院</option>
+						
+						<option value="402"  title="药学院"> 药学院</option>
+						
+						<option value="405"  title="临床医学院"> 临床医学院</option>
+						
+						<option value="410"  title="软件学院"> 软件学院</option>
+						
+						<option value="412"  title="网络研究院"> 网络研究院</option>
+						
+						<option value="413"  title="地区研究院"> 地区研究院</option>
+						
+						<option value="415"  title="航发院"> 航发院</option>
+						
+						<option value="420"  title="语言中心"> 语言中心</option>
+						
+						<option value="470"  title="新雅书院"> 新雅书院</option>
+						
+						<option value="471"  title="致理书院"> 致理书院</option>
+						
+						<option value="472"  title="日新书院"> 日新书院</option>
+						
+						<option value="473"  title="未央书院"> 未央书院</option>
+						
+						<option value="475"  title="行健书院"> 行健书院</option>
+						
+						<option value="476"  title="求真书院"> 求真书院</option>
+						
+						<option value="477"  title="为先书院"> 为先书院</option>
+						
+						<option value="478"  title="秀钟书院"> 秀钟书院</option>
+						
+						<option value="479"  title="笃实书院"> 笃实书院</option>
+						
+						<option value="482"  title="紫荆书院"> 紫荆书院</option>
+						
+						<option value="483"  title="自强书院"> 自强书院</option>
+						
+						<option value="484"  title="水木书院"> 水木书院</option>
+						
+						<option value="492"  title="数学教学中心"> 数学教学中心</option>
+						
+						<option value="500"  title="医学院"> 医学院</option>
+						
+						<option value="501"  title="基础医学院"> 基础医学院</option>
+						
+						<option value="502"  title="生医工程学院"> 生医工程学院</option>
+						
+						<option value="503"  title="医疗管理学院"> 医疗管理学院</option>
+						
+						<option value="599"  title="国际研究生院"> 国际研究生院</option>
+						
+						<option value="601"  title="清华大学全球创新学院"> 清华大学全球创新学院</option>
+						
+					</select>
+					</p>
+                    </div>
+                    <div class="keH clearfix">
+                    <p><span class="pad" style="padding-right: 15px;">课程分类</span>
+                    <select name="p_kcflm" style="padding:7px;">
+						<option value=""></option>
+						
+						
+						<option value="001" title="本科生"    >本科生</option>
+						
+						<option value="002" title="研究生"    >研究生</option>
+						
+						<option value="003" title="专科"    >专科</option>
+						 
+					</select>
+                    </p>                 
+                    <p><span class="pad" style="padding-right: 15px;margin-left:-2px;">上课星期</span>
+                    <select name="p_skxq" style="padding:7px;">
+						<option value=""></option>
+						<option value="1"  >星期一 </option>
+						<option value="2"  >星期二 </option>
+						<option value="3"  >星期三 </option>
+						<option value="4"  >星期四 </option>
+						<option value="5"  >星期五 </option>
+						<option value="6"  >星期六 </option>
+						<option value="7"  >星期日 </option>
+					</select>
+                    </p> 
+                    <p><span class="pad" style="padding-right: 15px;margin-left:-2px;">上课节次</span>
+                    <select name="p_skjc" style="padding:7px;">
+						<option value=""></option>
+						
+						<option value="1"       >
+						第1节
+						</option>
+						
+						<option value="2"       >
+						第2节
+						</option>
+						
+						<option value="3"       >
+						第3节
+						</option>
+						
+						<option value="4"       >
+						第4节
+						</option>
+						
+						<option value="5"       >
+						第5节
+						</option>
+						
+						<option value="6"       >
+						第6节
+						</option>
+						
+					</select>
+                    </p> 
+                    <p><span style="padding-right: 15px;margin-left:-2px;">选课文字说明</span><input name="p_xkwzsm" type="text" size="10" class="inp" value=""></p>
+					<p><span style="padding-right: 15px;">通识选修课组</span>
+						<select name="p_rxklxm">
+							<option value="">-- 不限 --</option>
+							
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+							
+								
+									<option value="TS1"  title="人文课组"> 人文课组</option>
+								
+							
+								
+									<option value="TS2"  title="社科课组"> 社科课组</option>
+								
+							
+								
+									<option value="TS3"  title="艺术课组"> 艺术课组</option>
+								
+							
+								
+									<option value="TS4"  title="科学课组"> 科学课组</option>
+								
+							
+						</select>
+					</p>
+					</div>
+                    <div class="keH clearfix">
+                    
+                    <p><span class="pad" style="padding-right: 15px;">课程特色</span>
+                    <select name="p_kctsm" style="padding:7px;">
+						<option></option>
+						
+						
+						<option value="05" title="专题研讨课"      >专题研讨课</option>
+						
+						<option value="01" title="全外文授课"      >全外文授课</option>
+						
+						<option value="13" title="公共英语"      >公共英语</option>
+						
+						<option value="02" title="外文授课比例≥50%(双语课)"      >外文授课比例≥50%(双语课)</option>
+						
+						<option value="03" title="外文教材，中文为主进行授课(双语课)"      >外文教材，中文为主进行授课(双语课)</option>
+						
+						<option value="11" title="实践课"      >实践课</option>
+						
+						<option value="10" title="实验课"      >实验课</option>
+						
+						<option value="09" title="挑战性学习课程"      >挑战性学习课程</option>
+						
+						<option value="06" title="文化素质核心课"      >文化素质核心课</option>
+						
+						<option value="07" title="文化素质课"      >文化素质课</option>
+						
+						<option value="04" title="新生研讨课"      >新生研讨课</option>
+						
+						<option value="17" title="新生研讨课(大类)"      >新生研讨课(大类)</option>
+						
+						<option value="12" title="混合式教学"      >混合式教学</option>
+						
+						<option value="08" title="精品课"      >精品课</option>
+						
+						<option value="16" title="英语专业"      >英语专业</option>
+						
+						<option value="15" title="认证外文课"      >认证外文课</option>
+						
+						<option value="20" title="语言类课程"      >语言类课程</option>
+						
+						<option value="14" title="通识英语"      >通识英语</option>
+						
+						<option value="19" title="通识荣誉课"      >通识荣誉课</option>
+						
+						<option value="18" title="通识选修课"      >通识选修课</option>
+						 
+					</select>
+                    </p>
+                    <p><span style="padding-right: 15px;">本科生年级</span>
+                    <select name="p_ssnj" style="padding:7px;margin-right: 15px;">
+						<option></option>
+						
+						<option value="2019"     >2019</option>
+						
+						<option value="2020"     >2020</option>
+						
+						<option value="2021"     >2021</option>
+						
+						<option value="2022"     >2022</option>
+						
+						<option value="2023"     >2023</option>
+						
+						<option value="2024"     >2024</option>
+						
+						<option value="2025"     >2025</option>
+						
+						<option value="2026"     >2026</option>
+						 
+					</select>
+                    </p>
+					<p><span style="padding-right: 15px;">本科生课余量</span>
+						<select name="p_bkskyl_ig">
+							<option value="">-- 不限 --</option>
+							<option value="0" > > 0 </option>
+						</select>
+					</p>
+					<p><span style="padding-right: 15px;">研究生课余量</span>
+						<select name="p_yjskyl_ig">
+							<option value="">-- 不限 --</option>
+							<option value="0" > > 0 </option>
+						</select>
+					</p>
+                    <a name="bt" class="souSuo yahei" href="javascript:void(0)" onclick="doQuery();" style="width:100px; text-align:center;">查询</a>
+                	</div>
+
+        
+    <div class="tab" style="width:100%;margin-left:0px;margin-right:0px;" id="table_sy">
+        
+        
+                 <table border="0" cellpadding="0" cellspacing="1">
+						<tr class="trr1">
+                            <td style=" width:5%"><span class="trunk">开课院系</span></td>
+                            <td style="width:5%"><div align="center" onclick="doSort('id.kch');"><span class="trunk">课程号</span></div></td>
+                            <td style="width:3%"><div align="center" onclick="doSort('id.kxh');"><span class="trunk">课序号</span></div></td>
+							<td style="width:12%"><div align="center" onclick="doSort('kcm');"><span class="trunk">课程名</span></div></td>
+                            <td style="width:3%"><div align="center" onclick="doSort('xf');"><span class="trunk" id="xf_sy">学分</span></div></td>
+                            <td style="width:5%"><div align="center"><span class="trunk">主讲教师</span></div></td>
+							<td style="width:5%"><div align="center" onclick="doSort('bkskrl');">
+    <span class="bkskrl">本科生课容量</span></div></td>
+							<td style="width:5%"><div align="center" onclick="doSort('bkskyl');">
+    <span class="bkskyl">本科生课余量</span></div></td>
+                        	<td style="width:5%"><div align="center" onclick="doSort('yjskrl');"><span class="yjskrl">研究生课容量</span></span></div></td>
+                        	<td style="width:5%"><div align="center" onclick="doSort('yjskyl');"><span class="yjskyl">研究生课余量</span></span></div></td>
+                        	<td style="width:10%"><div align="center" style=""><span class="trunk">上课时间</span></div></td>
+    <td style="width:4%"><div align="center"><span class="trunk">选课文字说明</span></div></td>
+    <td style="width:5%"><div align="center"><span class="trunk">课程特色</span></div></td>
+    <td style="width:4%"><div align="center" onclick="doSort('ssnj');"><span class="trunk">年级</span></div></td>
+    <td style="width:5%"><div align="center" onclick="doSort('sfejxk');"><span class="trunk">是否二级选课</span></div></td>
+    <td style="width:4%"><div align="center"><span class="trunk syxx">实验信息</span></div></td>
+
+                        	<td style="width:5%"><div align="center" onclick="doSort('cxsfjrl');"><span class="trunk">重修是否占容量</span></div></td>
+                        	<td style="width:5%"><div align="center" onclick="doSort('sfxksxz');"><span class="trunk">是否选课时限制</span></div></td>
+    <td style="width:5%"><div align="center"><span class="trunk">通识选修课组</span></div></td>
+
+    </tr>
+						
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">集成电路学院</span></div></td>
+   							<td><div align="center"><span>00260011</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2004990086;00260011&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">晶体管的发明和信息时代的诞生</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2004990086' target='_blank'><span class="trunk">刘雷波</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >20</span></div></td>
+   							<td><div align="center"><span >20</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">3-4(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课"><span class="trunk">限:2026学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">集成电路学院</span></div></td>
+   							<td><div align="center"><span>00260092</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2009990011;00260092&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">固体量子计算和量子相干器件简介</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >2</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2009990011' target='_blank'><span class="trunk">刘玉玺</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >15</span></div></td>
+   							<td><div align="center"><span >15</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">2-4(1-11周),2-3(1-11周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课"><span class="trunk">限:2026学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">航院</span></div></td>
+   							<td><div align="center"><span>00310061</span></div></td>
+  							<td><div align="center"><span>0</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2001990083;00310061&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">新军事变革与国防科学技术发展</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2001990083' target='_blank'><span class="trunk">葛东云</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >50</span></div></td>
+   							<td><div align="center"><span >50</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">1-2(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:笃实航67、笃实航68学生选课"><span class="trunk">限:笃实航67、笃实航68学生选课</span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk"></span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">航院</span></div></td>
+   							<td><div align="center"><span>00310072</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2001990258;00310072&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">航空概论</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >2</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2001990258' target='_blank'><span class="trunk">陈海昕</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >50</span></div></td>
+   							<td><div align="center"><span >50</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">2-6(全周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="优先:笃实航67、笃实航68学生选课"><span class="trunk">优先:笃实航67、笃实航68学生选课</span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						通识选修课
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">航院</span></div></td>
+   							<td><div align="center"><span>00310332</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1992990046;00310332&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">力学中的创意设计</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >2</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1992990046' target='_blank'><span class="trunk">高云峰</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >60</span></div></td>
+   							<td><div align="center"><span >60</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">1-3(全周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title=""><span class="trunk"></span></td>
+
+	
+  				<td>
+				
+			
+				
+						文化素质课;
+				
+						实践课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk"></span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"><a class='mainHref' href='xk.xk_syrwb.do?m=show&p_xnxq=2026-2027-1&p_kch=00310332&p_kxh=90' target='_blank'><span class="trunk">实验信息</span></a></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">航院</span></div></td>
+   							<td><div align="center"><span>00310341</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1999990135;00310341&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">本科生论文写作</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1999990135' target='_blank'><span class="trunk">吴子牛</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >15</span></div></td>
+   							<td><div align="center"><span >15</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">2-4(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title=""><span class="trunk"></span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						实践课
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk"></span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk"></span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">航院</span></div></td>
+   							<td><div align="center"><span>00310391</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2010990060;00310391&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">力学中的人工智能</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2010990060' target='_blank'><span class="trunk">徐志平</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >30</span></div></td>
+   							<td><div align="center"><span >30</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">1-2(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title=""><span class="trunk"></span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk"></span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk"></span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320021</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2004990036;00320021&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">等离子体技术及应用</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2004990036' target='_blank'><span class="trunk">李和平</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >20</span></div></td>
+   							<td><div align="center"><span >20</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">2-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title=""><span class="trunk"></span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						专题研讨课
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk"></span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk"></span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320121</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2002990095;00320121&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">瓶装太阳-人类的聚变梦想</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2002990095' target='_blank'><span class="trunk">高喆</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >15</span></div></td>
+   							<td><div align="center"><span >15</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">4-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课"><span class="trunk">限:2026学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320141</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1995990233;00320141&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">核燃料循环与核武器</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1995990233' target='_blank'><span class="trunk">周明胜</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >20</span></div></td>
+   							<td><div align="center"><span >20</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">4-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课"><span class="trunk">限:2026学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320171</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1999990153;00320171&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">身边的粒子加速器</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1999990153' target='_blank'><span class="trunk">黄文会</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >20</span></div></td>
+   							<td><div align="center"><span >20</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">4-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课"><span class="trunk">限:2026学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320191</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2011990054;00320191&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">物理探索中的仪器</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2011990054' target='_blank'><span class="trunk">曾鸣</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >20</span></div></td>
+   							<td><div align="center"><span >20</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">4-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课"><span class="trunk">限:2026学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320231</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1998990176;00320231&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">中子：改变世界的发现</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1998990176' target='_blank'><span class="trunk">王学武</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >20</span></div></td>
+   							<td><div align="center"><span >20</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">4-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课"><span class="trunk">限:2026学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质核心课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320262</span></div></td>
+  							<td><div align="center"><span>1</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2009990070;00320262&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">射线源导论</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >2</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2009990070' target='_blank'><span class="trunk">杜应超</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >35</span></div></td>
+   							<td><div align="center"><span >35</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">2-3(全周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title=""><span class="trunk"></span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2024</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk"></span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">工物系</span></div></td>
+   							<td><div align="center"><span>00320262</span></div></td>
+  							<td><div align="center"><span>2</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1999990153;00320262&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">射线源导论</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >2</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1999990153' target='_blank'><span class="trunk">黄文会</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >35</span></div></td>
+   							<td><div align="center"><span >35</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">2-3(全周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title=""><span class="trunk"></span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2024</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk"></span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">化工系</span></div></td>
+   							<td><div align="center"><span>00340031</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1992990071;00340031&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">大分子的世界</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1992990071' target='_blank'><span class="trunk">谢续明</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >15</span></div></td>
+   							<td><div align="center"><span >15</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">1-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课; 优先:理科类（化生）、探微书院学生选课"><span class="trunk">限:2026学生选课; 优先:理科类（化生）、探微书院学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">化工系</span></div></td>
+   							<td><div align="center"><span>00340051</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=1989990256;00340051&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">分子设计与化学工程</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >1</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=1989990256' target='_blank'><span class="trunk">刘铮</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >21</span></div></td>
+   							<td><div align="center"><span >21</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">1-6(前八周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="限:2026学生选课; 优先:理科类（化生）、探微书院学生选课"><span class="trunk">限:2026学生选课; 优先:理科类（化生）、探微书院学生选课</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span >是</span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">化工系</span></div></td>
+   							<td><div align="center"><span>00340153</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2011990133;00340153&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">纳米能源</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >3</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2011990133' target='_blank'><span class="trunk">张强</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >15</span></div></td>
+   							<td><div align="center"><span >15</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">3-6(全周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="挑战性课程,具有扎实的物理化学基础"><span class="trunk">挑战性课程,具有扎实的物理化学基础</span></td>
+
+	
+  				<td>
+				
+			
+				
+						文化素质核心课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk"></span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">化工系</span></div></td>
+   							<td><div align="center"><span>00340163</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2023970004;00340163&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">能源材料</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >3</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2023970004' target='_blank'><span class="trunk">陈翔</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >15</span></div></td>
+   							<td><div align="center"><span >15</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">3-6(全周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="挑战性课程,具有扎实的物理化学基础"><span class="trunk">挑战性课程,具有扎实的物理化学基础</span></td>
+
+	
+  				<td>
+				
+			
+			
+			
+				
+						
+				
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk"></span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"><a class='mainHref' href='xk.xk_syrwb.do?m=show&p_xnxq=2026-2027-1&p_kch=00340163&p_kxh=90' target='_blank'><span class="trunk">实验信息</span></a></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk"></span></td>
+        </tr>
+       
+       
+                        <tr class="trr2">
+                            <td><div align="center"><span class="trunk">化工系</span></div></td>
+   							<td><div align="center"><span>00340172</span></div></td>
+  							<td><div align="center"><span>90</span></div></td>
+                            <td style="text-align:left">
+                              
+        		  						<!--链接加入了课程分类代码用于区分本研-->
+        		  							<a href='js.vjsKcbBs.do?m=showToXs&p_id=2023970004;00340172&kcfldm=001' class='mainHref' target='_blank'><span class="trunk">当代化学工程：应对全球挑战</span></a> 
+        		  						
+      		  						
+		  						
+                            </td>
+  							<td><div align="center"><span >2</span></div></td>
+   							<td><div align="center">
+		  							
+		  								<a class='mainHref' href='xkBks.vxkBksJxjhBs.do?m=showJsDetail&p_jsh=2023970004' target='_blank'><span class="trunk">陈翔</span></a>
+		  							
+		  							
+		  						</div></td>   
+   							<td><div align="center"><span >15</span></div></td>
+   							<td><div align="center"><span >15</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+ 							<td><div align="center"><span >0</span></div></td>
+   							<td><div align="center"><span class="trunk">2-6(全周)</span></div></td>
+    <td class="js_site-item g-ib site-item site-item-normal" title="挑战性课程,具有扎实的物理化学基础"><span class="trunk">挑战性课程,具有扎实的物理化学基础</span></td>
+
+	
+  				<td>
+				
+			
+				
+						新生研讨课;
+				
+						文化素质课;
+				
+						通识选修课;
+				
+			
+			
+			
+				
+				</td>
+							
+    <td><div align="center"><span class="trunk">2026</span></div></td>
+        <td><div align="center"><span >否</span></div></td>
+        <td><div align="center"></div></td>
+
+   							<td><div align="center"><span>否</span></div></td>
+        <td><div align="center"><span ></span></div></td>
+        <td><span class="trunk">科学课组</span></td>
+        </tr>
+       
+       
+			</table>
+			
+					<p class="yeM yahei">
+					
+					<a href="javascript:turn(1);" id="firstpage">首页</a><a href='javascript:turn(4);' id="uppage">上一页</a><a href='javascript:turn(6);' id="nextpage">下一页</a><a href='javascript:turn(294);' id="endpage">末页</a>  
+                     &nbsp;
+					  第 5 页 / 共 294 页（共 5,864 条记录）
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 <input type="text" name="goPageNumber"  class="inputbox" value='5' size="2">&nbsp;
+						<input type="button" id="go" class="sousuobt" onclick="document.frm.go.disabled=true;turn(document.frm.goPageNumber.value);" value="GO" style="margin-right: 60px;">&nbsp;&nbsp;
+					
+					  </p>  
+					  
+					  
+					  </div>                   
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+</body>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr> 
+		<td height="30" align="center" class="copyright_shadow">
+		&copy;版权所有：清华大学教务处、研究生院、注册中心 | 技术支持：&nbsp;<a href="http://www.itc.tsinghua.edu.cn" target="_blank">清华大学信息化技术中心</a>服务电话：62771940/51775940
+		</td>
+	</tr>
+</table>
+
+
+    <script>
+    $('.trunk').trunk8();
+    $(window).resize(function(){
+    $('.trunk').trunk8();
+    });
+    $(function(){
+        var bkskrl =  $(".bkskrl").text();
+        if(bkskrl.length > 6){
+            $(".bkskrl").parent().parent().attr("title",bkskrl);
+            $(".bkskrl").text(bkskrl.substring(0,6)+"...");
+        }
+        var yjskrl =  $(".yjskrl").text();
+        if(yjskrl.length > 6){
+            $(".yjskrl").parent().parent().attr("title",yjskrl);
+            $(".yjskrl").text(yjskrl.substring(0,6)+"...");
+        }
+
+
+    });
+    </script>
+
+    </html>
