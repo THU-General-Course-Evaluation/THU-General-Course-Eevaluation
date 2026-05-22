@@ -134,13 +134,23 @@ def write_or_append_review(
 
 
 def upsert_review_block(existing: str, issue_number: str, review_block: str) -> str:
-    """同号评价已存在则原地覆盖，否则追加到末尾。"""
+    """同号评价已存在则原地覆盖（并清掉任何重复块），否则追加到末尾。"""
     pattern = re.compile(
         rf"(?ms)^### 评价 #{re.escape(issue_number)}\n.*?(?=^### |^## |\Z)"
     )
-    if pattern.search(existing):
-        return pattern.sub(lambda _: review_block, existing, count=1)
-    return existing + review_block
+    if not pattern.search(existing):
+        return existing + review_block
+
+    seen = False
+
+    def replace(_match: re.Match) -> str:
+        nonlocal seen
+        if seen:
+            return ""
+        seen = True
+        return review_block
+
+    return pattern.sub(replace, existing)
 
 
 

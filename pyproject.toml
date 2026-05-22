@@ -10,3 +10,12 @@ dependencies = [
 	"pypinyin==0.51.0",
 	"requests==2.32.3",
 ]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+# 本项目不是要被安装的库（本地都是 python -m core.crawler 直接跑源码），
+# 不打包任何模块，避免 setuptools 对 core/plan/data 的 flat-layout 自动发现报错。
+[tool.setuptools]
+py-modules = []
