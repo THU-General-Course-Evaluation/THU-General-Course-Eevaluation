@@ -17,4 +17,7 @@ markdown_extensions:
 nav:
   - 首页: index.md
   - 课程评价: courses/index.md
+  - 全部课程:
+    - 按课程名: all-courses.md
+    - 按老师名: all-teachers.md
   - 贡献指南: contribute.md
