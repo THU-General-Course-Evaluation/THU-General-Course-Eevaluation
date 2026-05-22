@@ -2,7 +2,7 @@ name: Ingest Course Review Issue
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, labeled]
 
 concurrency:
   group: course-review-ingest
