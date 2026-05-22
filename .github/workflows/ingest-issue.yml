@@ -32,8 +32,6 @@ jobs:
           ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
-          ISSUE_URL: ${{ github.event.issue.html_url }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

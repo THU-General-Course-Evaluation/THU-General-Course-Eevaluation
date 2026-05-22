@@ -1,7 +1,6 @@
 import json
 import os
 import re
-from datetime import datetime
 from pathlib import Path
 
 from pypinyin import lazy_pinyin
@@ -17,8 +16,6 @@ REQUIRED_FIELDS = ["课程号", "课序号", "评价打分（1-7）", "具体评
 def main() -> None:
     issue_body = os.getenv("ISSUE_BODY", "")
     issue_number = os.getenv("ISSUE_NUMBER", "")
-    issue_author = os.getenv("ISSUE_AUTHOR", "")
-    issue_url = os.getenv("ISSUE_URL", "")
 
     fields = parse_issue_body(issue_body)
     validate_fields(fields)
@@ -40,8 +37,6 @@ def main() -> None:
         rating=rating,
         content=content,
         issue_number=issue_number,
-        issue_author=issue_author,
-        issue_url=issue_url,
         path=course_file,
     )
 
@@ -106,8 +101,6 @@ def write_or_append_review(
     rating: int,
     content: str,
     issue_number: str,
-    issue_author: str,
-    issue_url: str,
     path: Path,
 ) -> None:
     COURSE_DOCS_DIR.mkdir(parents=True, exist_ok=True)
@@ -124,10 +117,7 @@ def write_or_append_review(
 
     review_block = (
         f"### 评价 #{issue_number}\n"
-        f"- 评分：{rating}/7\n"
-        f"- 贡献者：@{issue_author}\n"
-        f"- 来源：{issue_url}\n"
-        f"- 时间：{datetime.now().strftime('%Y-%m-%d')}\n\n"
+        f"- 评分：{rating}/7\n\n"
         f"{content}\n\n"
     )
 
