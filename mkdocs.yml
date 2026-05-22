@@ -1,7 +1,7 @@
 site_name: 通识课课程评价
-site_url: https://<your-username>.github.io/general-course-evaluation/
-repo_url: https://github.com/<your-username>/general-course-evaluation
-repo_name: general-course-evaluation
+site_url: https://thu-general-course-evaluation.github.io/THU-General-Course-Eevaluation/
+repo_url: https://github.com/THU-General-Course-Evaluation/THU-General-Course-Eevaluation
+repo_name: THU-General-Course-Eevaluation
 theme:
   name: material
   language: zh
