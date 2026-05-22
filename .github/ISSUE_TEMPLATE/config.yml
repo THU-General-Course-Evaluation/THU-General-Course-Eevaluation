@@ -1,0 +1,13 @@
+# 配置 Issue 模板选择器（必须位于 .github/ISSUE_TEMPLATE 目录）
+# 关闭空白 Issue：引导贡献者使用「通识课评价」模板，未走模板的 Issue 不会被自动化采集。
+# 仍拥有写权限的维护者会看到「Open a blank issue（仅维护者）」入口。
+blank_issues_enabled: false
+
+# 选择器中额外展示的外部链接，引导无需新建 Issue 的诉求。
+contact_links:
+  - name: 浏览已有课程评价
+    url: https://thu-general-course-evaluation.github.io/THU-General-Course-Eevaluation/courses/
+    about: 只是想查看评价、不打算提交，请直接访问站点。
+  - name: 贡献指南与评分规范
+    url: https://github.com/THU-General-Course-Evaluation/THU-General-Course-Eevaluation/blob/main/docs/contribute.md
+    about: 提交前请先阅读评分范围（1-7）与流程说明。
